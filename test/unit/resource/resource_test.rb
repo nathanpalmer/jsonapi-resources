@@ -80,6 +80,12 @@ module MyAPI
   end
 end
 
+module MyNamespace
+  class SubResource < JSONAPI::Resource
+    model_name "MyNamespace::SubResource"
+  end
+end
+
 class ResourceTest < ActiveSupport::TestCase
   def setup
     @post = Post.first
@@ -91,6 +97,10 @@ class ResourceTest < ActiveSupport::TestCase
 
   def test_model_name_of_subclassed_non_abstract_resource
     assert_equal("Firm", FirmResource._model_name)
+  end
+
+  def test_model_type_of_namespaced_resource_with_namespace
+    assert_equal(:'my_namespace/subs', MyNamespace::SubResource._type)
   end
 
   def test_model

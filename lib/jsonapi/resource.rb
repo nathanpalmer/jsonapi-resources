@@ -436,6 +436,7 @@ module JSONAPI
 
       def model_name(model, options = {})
         @_model_name = model.to_sym
+        self._type = model.sub(/Resource$/, '').underscore.pluralize.to_sym
 
         model_hint(model: @_model_name, resource: self) unless options[:add_model_hint] == false
       end
